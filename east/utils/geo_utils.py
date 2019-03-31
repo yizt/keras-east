@@ -78,6 +78,21 @@ def dist_point_to_rect(point, box):
     return dist_top, dist_right, dist_bottom, dist_left
 
 
+def point_shift_on_line(p1, p2, dist_shift):
+    """
+    p1向p2移动指定距离的点
+    :param p1: 直线的第一个端点
+    :param p2: 直线的第二个端点
+    :param dist_shift: 相对于第一个点的位移距离
+    :return: 目标点
+    """
+    # 直线距离
+    dist_line = np.linalg.norm(p1 - p2)
+    # 按比例相加，就是目标点
+    point = p1 + (p2 - p1) * dist_shift / dist_line
+    return point
+
+
 def main():
     print(elem_cycle_shift([1, 2, 3, 4], 1))
     print(elem_cycle_shift([1, 2, 3, 4], 2))
