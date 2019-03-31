@@ -110,6 +110,32 @@ def fit_line(p1, p2):
         return [a, -1., c]
 
 
+def vertical_line(p1, p2, p3):
+    """
+    过点p3,与直线p1,p2垂直的线
+    互相垂直的线，斜率互为互倒数
+    :param p1: [x,y]
+    :param p2: [x,y]
+    :param p3: [x,y]
+    :return: 新方程的系数[na,nb,nc]
+    """
+    line = fit_line(p1, p2)
+    a, b, c = line  # ax+by+c=0;一般b为-1
+    # 以下获取垂线的系数na,nb,nc
+    if a == 0.:  # 原方程为y=c ;新方程为x=-nc
+        na = 1.
+        nb = 0.
+    elif b == 0.:  # 原方程为x=-c;新方程为y=nc
+        na = 0.
+        nb = -1.
+    else:  # 斜率互为互倒数 a*na=-1;
+        na = -1. / a
+        nb = -1.
+    # 根据ax+by+c=0求解系数c
+    nc = -(na * p3[0] + nb * p3[1])
+    return [na, nb, nc]
+
+
 def main():
     print(elem_cycle_shift([1, 2, 3, 4], 1))
     print(elem_cycle_shift([1, 2, 3, 4], 2))
