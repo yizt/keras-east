@@ -93,6 +93,23 @@ def point_shift_on_line(p1, p2, dist_shift):
     return point
 
 
+def fit_line(p1, p2):
+    """
+    拟合直线
+    :param p1: [x,y]
+    :param p2: [x,y]
+    :return: 拟合方程系数
+    """
+    x = [p1[0], p2[0]]
+    y = [p1[1], p2[1]]
+    # 拟合直线 ax+by+c = 0
+    if x[0] == x[1]:
+        return [1., 0., -x[0]]
+    else:
+        [a, c] = np.polyfit(x, y, deg=1)  # b=-1
+        return [a, -1., c]
+
+
 def main():
     print(elem_cycle_shift([1, 2, 3, 4], 1))
     print(elem_cycle_shift([1, 2, 3, 4], 2))
