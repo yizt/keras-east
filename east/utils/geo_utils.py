@@ -66,6 +66,18 @@ def min_area_rect_and_angle(polygon):
     return box, angle * np.pi / 180
 
 
+def dist_point_to_rect(point, box):
+    """
+    点到矩形框4条边的距离
+    :param point: numpy数组[(x,y)]
+    :param box: 矩形框的顶点，numpy数组[4,(xi,yi)];  (x0,y0)代表左上顶点，顺时针方向排列
+    :return: 返回点到矩形框上边，右边，下边，左边的距离
+    """
+    dist_top, dist_right, dist_bottom, dist_left = [dist_point_to_line(
+        box[i], box[(i + 1) % 4], point) for i in range(4)]
+    return dist_top, dist_right, dist_bottom, dist_left
+
+
 def main():
     print(elem_cycle_shift([1, 2, 3, 4], 1))
     print(elem_cycle_shift([1, 2, 3, 4], 2))
