@@ -45,8 +45,8 @@ def elem_cycle_shift(elements, shift):
 def min_area_rect_and_angle(polygon):
     """
     包围多边形的最小矩形框
-    :param polygon:
-    :return:
+    :param polygon:[n,(x,y)]
+    :return:rect,angle
     """
     rect = cv2.minAreaRect(polygon)  # ((ctx,cty),(w,h),angle) angle为负
     box = cv2.boxPoints(rect)  # 边框四个坐标[4,2];顺时针排列,第一个坐标是y值最大的那个
@@ -75,7 +75,7 @@ def dist_point_to_rect(point, box):
     """
     dist_top, dist_right, dist_bottom, dist_left = [dist_point_to_line(
         box[i], box[(i + 1) % 4], point) for i in range(4)]
-    return dist_top, dist_right, dist_bottom, dist_left
+    return np.array([dist_top, dist_right, dist_bottom, dist_left])
 
 
 def point_shift_on_line(p1, p2, dist_shift):
@@ -150,6 +150,21 @@ def cross_point(line1, line2):
     x = (c2 * b1 - c1 * b2) / (a1 * b2 - a2 * b1)
     y = (c2 * a1 - c1 * a2) / (b1 * a2 - b2 * a1)
     return np.array([x, y])
+
+
+def rotate(point, angle):
+    """
+    饶原点旋转
+    x′=xcosθ−ysinθ
+    y′=xsinθ+ycosθ
+    :param point:
+    :param angle: 旋转角度
+    :return: 旋转后的坐标
+    """
+    x, y = point
+    new_x = x * np.cos(angle) - y * np.sin(angle)
+    new_y = x * np.sin(angle) + y * np.cos(angle)
+    return np.array([new_x, new_y])
 
 
 def main():

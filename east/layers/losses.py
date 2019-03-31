@@ -47,7 +47,7 @@ def angle_loss(y_true, y_pred, mask):
 
 def balanced_cross_entropy(y_true, logits, mask):
     """
-
+    平衡交叉熵
     :param y_true: [batch_size,H,W] 1-文本，0-非文本
     :param logits: [batch_size,H,W] 预测文本得分
     :param mask: [batch_size,H,W] 是否参与训练，1-参与，0-不参与
