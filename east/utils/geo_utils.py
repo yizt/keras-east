@@ -136,6 +136,22 @@ def vertical_line(p1, p2, p3):
     return [na, nb, nc]
 
 
+def cross_point(line1, line2):
+    """
+    两条直线的交点
+    y=(c2*a1-c1*a2)/(b1*a2-b2*a1)
+    x=(c2*b1-c1*b2)/(a1*b2-a2*b1)
+    :param line1: [a1,b1,c1]
+    :param line2: [a2,b2,c2]
+    :return:
+    """
+    a1, b1, c1 = line1
+    a2, b2, c2 = line2
+    x = (c2 * b1 - c1 * b2) / (a1 * b2 - a2 * b1)
+    y = (c2 * a1 - c1 * a2) / (b1 * a2 - b2 * a1)
+    return np.array([x, y])
+
+
 def main():
     print(elem_cycle_shift([1, 2, 3, 4], 1))
     print(elem_cycle_shift([1, 2, 3, 4], 2))
